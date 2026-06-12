@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Joseph Diamond | Portfolio</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0d1117;
+      --surface: #161b22;
+      --surface2: #21262d;
+      --border: #30363d;
+      --accent: #58a6ff;
+      --accent2: #3fb950;
+      --text: #e6edf3;
+      --muted: #8b949e;
+      --tag-bg: #1f2937;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(13,17,23,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 0 2rem; height: 60px;
+    }
+    .nav-logo { font-weight: 700; font-size: 1rem; color: var(--accent); letter-spacing: 0.05em; }
+    .nav-links { display: flex; gap: 1.5rem; list-style: none; }
+    .nav-links a {
+      color: var(--muted); text-decoration: none; font-size: 0.875rem;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      text-align: center;
+      padding: 6rem 2rem 4rem;
+      background: radial-gradient(ellipse at 50% 0%, rgba(88,166,255,0.08) 0%, transparent 60%);
+    }
+    .hero-inner { max-width: 700px; }
+    .hero-badge {
+      display: inline-block;
+      background: rgba(88,166,255,0.1);
+      border: 1px solid rgba(88,166,255,0.3);
+      color: var(--accent);
+      font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em;
+      padding: 0.3rem 0.9rem; border-radius: 999px;
+      margin-bottom: 1.5rem; text-transform: uppercase;
+    }
+    h1 { font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 800; line-height: 1.1; margin-bottom: 1rem; }
+    .hero-title { color: var(--muted); font-size: 1.1rem; margin-bottom: 1.5rem; }
+    .hero-summary {
+      color: var(--muted); font-size: 0.95rem; max-width: 580px; margin: 0 auto 2rem;
+    }
+    .hero-ctas { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.65rem 1.4rem; border-radius: 8px;
+      font-size: 0.875rem; font-weight: 600; text-decoration: none;
+      transition: all 0.2s; cursor: pointer; border: none;
+    }
+    .btn-primary { background: var(--accent); color: #0d1117; }
+    .btn-primary:hover { background: #79b8ff; }
+    .btn-secondary { background: transparent; color: var(--text); border: 1px solid var(--border); }
+    .btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* ── SECTION SHARED ── */
+    section { padding: 5rem 2rem; }
+    .container { max-width: 900px; margin: 0 auto; }
+    .section-label {
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 0.5rem;
+    }
+    .section-title { font-size: 1.75rem; font-weight: 800; margin-bottom: 2.5rem; }
+    .divider { width: 40px; height: 3px; background: var(--accent); margin: 0.75rem 0 2.5rem; border-radius: 2px; }
+
+    /* ── PROJECTS ── */
+    #projects { background: var(--surface); }
+    .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.25rem; }
+    .card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      transition: border-color 0.2s, transform 0.2s;
+      display: flex; flex-direction: column; gap: 0.75rem;
+    }
+    .card:hover { border-color: var(--accent); transform: translateY(-3px); }
+    .card-icon { font-size: 1.5rem; }
+    .card h3 { font-size: 1rem; font-weight: 700; }
+    .card p { font-size: 0.85rem; color: var(--muted); flex: 1; }
+    .card-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: auto; }
+    .tag {
+      background: var(--tag-bg); color: var(--accent);
+      font-size: 0.7rem; font-weight: 600; padding: 0.2rem 0.6rem;
+      border-radius: 4px; border: 1px solid rgba(88,166,255,0.2);
+    }
+    .tag.green { color: var(--accent2); border-color: rgba(63,185,80,0.2); }
+
+    /* ── EXPERIENCE ── */
+    .timeline { display: flex; flex-direction: column; gap: 2rem; }
+    .timeline-item { display: flex; gap: 1.25rem; }
+    .timeline-dot-col { display: flex; flex-direction: column; align-items: center; padding-top: 0.3rem; }
+    .timeline-dot {
+      width: 12px; height: 12px; border-radius: 50%;
+      background: var(--accent); flex-shrink: 0;
+    }
+    .timeline-line { flex: 1; width: 1px; background: var(--border); margin-top: 6px; }
+    .timeline-content { flex: 1; padding-bottom: 1rem; }
+    .timeline-header { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.5rem; }
+    .timeline-role { font-weight: 700; font-size: 1rem; }
+    .timeline-company { color: var(--accent); font-size: 0.875rem; }
+    .timeline-date { color: var(--muted); font-size: 0.8rem; white-space: nowrap; }
+    .timeline-bullets { list-style: none; padding: 0; }
+    .timeline-bullets li {
+      color: var(--muted); font-size: 0.875rem;
+      padding: 0.2rem 0 0.2rem 1rem; position: relative;
+    }
+    .timeline-bullets li::before {
+      content: '▸'; position: absolute; left: 0; color: var(--accent2);
+    }
+
+    /* ── SKILLS ── */
+    #skills { background: var(--surface); }
+    .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1.25rem; }
+    .skill-group { background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; }
+    .skill-group h4 { font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 0.75rem; }
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .skill-tag {
+      background: var(--surface2); color: var(--text);
+      font-size: 0.78rem; padding: 0.25rem 0.6rem; border-radius: 6px;
+      border: 1px solid var(--border);
+    }
+
+    /* ── EDUCATION ── */
+    .edu-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px; padding: 1.5rem;
+      display: flex; gap: 1.25rem; align-items: flex-start;
+    }
+    .edu-icon { font-size: 2rem; flex-shrink: 0; }
+    .edu-school { font-weight: 700; font-size: 1rem; }
+    .edu-degree { color: var(--accent); font-size: 0.875rem; margin: 0.2rem 0; }
+    .edu-courses { color: var(--muted); font-size: 0.8rem; margin-top: 0.5rem; }
+
+    /* ── CONTACT ── */
+    #contact { text-align: center; }
+    .contact-links { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; margin-top: 2rem; }
+    .contact-link {
+      display: flex; align-items: center; gap: 0.5rem;
+      background: var(--surface); border: 1px solid var(--border);
+      color: var(--text); text-decoration: none;
+      padding: 0.75rem 1.25rem; border-radius: 10px;
+      font-size: 0.875rem; transition: all 0.2s;
+    }
+    .contact-link:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center; padding: 2rem;
+      color: var(--muted); font-size: 0.8rem;
+      border-top: 1px solid var(--border);
+    }
+
+    @media (max-width: 600px) {
+      nav { padding: 0 1rem; }
+      .nav-links { gap: 1rem; }
+      section { padding: 3.5rem 1.25rem; }
+      .edu-card { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">JD</div>
+  <ul class="nav-links">
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">Open to opportunities</div>
+    <h1>Joseph Diamond</h1>
+    <p class="hero-title">Computer Systems Technology · Rowan University</p>
+    <p class="hero-summary">
+      CS student with hands-on experience building automation tools, CRM platforms,
+      and cybersecurity labs. Background in project coordination and client management.
+      Seeking roles in IT, Cybersecurity, or Technical Operations.
+    </p>
+    <div class="hero-ctas">
+      <a class="btn btn-primary" href="#projects">View Projects</a>
+      <a class="btn btn-secondary" href="https://github.com/joediamondlife-design" target="_blank" rel="noopener">
+        <!-- github icon -->
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        GitHub
+      </a>
+      <a class="btn btn-secondary" href="mailto:joediamond35@gmail.com">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
+        Email
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="container">
+    <p class="section-label">Work</p>
+    <h2 class="section-title">Technical Projects</h2>
+    <div class="divider"></div>
+    <div class="projects-grid">
+
+      <div class="card">
+        <div class="card-icon">🗄️</div>
+        <h3>CRM Platform</h3>
+        <p>Custom CRM built to support lead management and sales workflows. Features contact management, lead tracking, and customer activity monitoring with a Node.js backend.</p>
+        <div class="card-tags">
+          <span class="tag">JavaScript</span>
+          <span class="tag">Node.js</span>
+          <span class="tag">Backend</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">⚙️</div>
+        <h3>Automated Lead Generation Engine</h3>
+        <p>AI-assisted Python tool that collects publicly available business and contact data. Automates ~8,000 leads/month with email reporting, daily delivery, and duplicate-detection logic.</p>
+        <div class="card-tags">
+          <span class="tag">Python</span>
+          <span class="tag">Automation</span>
+          <span class="tag">AI-assisted</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">🔐</div>
+        <h3>Cybersecurity Labs</h3>
+        <p>Hands-on labs via TryHackMe covering network reconnaissance, Linux administration, and vulnerability assessment. Used Nmap for host discovery, port scanning, and service enumeration.</p>
+        <div class="card-tags">
+          <span class="tag green">Nmap</span>
+          <span class="tag green">TryHackMe</span>
+          <span class="tag green">Linux</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="container">
+    <p class="section-label">History</p>
+    <h2 class="section-title">Experience</h2>
+    <div class="divider"></div>
+    <div class="timeline">
+
+      <div class="timeline-item">
+        <div class="timeline-dot-col">
+          <div class="timeline-dot"></div>
+          <div class="timeline-line"></div>
+        </div>
+        <div class="timeline-content">
+          <div class="timeline-header">
+            <div>
+              <div class="timeline-role">Account Manager</div>
+              <div class="timeline-company">Diamond Landscaping &amp; Design · River Edge, NJ</div>
+            </div>
+          </div>
+          <ul class="timeline-bullets">
+            <li>Managed 15+ landscaping projects annually with budgets up to $20,000</li>
+            <li>Prepared proposals, estimates, contracts, schedules, and project documentation</li>
+            <li>Coordinated crews and subcontractors to ensure on-time, in-scope delivery</li>
+            <li>Maintained client relationships that generated repeat business and referrals</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot-col">
+          <div class="timeline-dot"></div>
+        </div>
+        <div class="timeline-content">
+          <div class="timeline-header">
+            <div>
+              <div class="timeline-role">Insurance Broker</div>
+              <div class="timeline-company">UniTrust Financial Group · Remote</div>
+            </div>
+          </div>
+          <ul class="timeline-bullets">
+            <li>Managed client pipelines and appointment scheduling via CRM software</li>
+            <li>Conducted high-volume lead qualification, outreach, and follow-up</li>
+            <li>Maintained detailed customer records and workflow tracking</li>
+            <li>Communicated complex insurance solutions while adhering to compliance standards</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="container">
+    <p class="section-label">Toolkit</p>
+    <h2 class="section-title">Technical Skills</h2>
+    <div class="divider"></div>
+    <div class="skills-grid">
+      <div class="skill-group">
+        <h4>Languages</h4>
+        <div class="skill-tags">
+          <span class="skill-tag">Python</span>
+          <span class="skill-tag">JavaScript</span>
+          <span class="skill-tag">Node.js</span>
+          <span class="skill-tag">Java</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h4>Security</h4>
+        <div class="skill-tags">
+          <span class="skill-tag">Nmap</span>
+          <span class="skill-tag">TryHackMe</span>
+          <span class="skill-tag">Network Recon</span>
+          <span class="skill-tag">Vuln Assessment</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h4>Systems</h4>
+        <div class="skill-tags">
+          <span class="skill-tag">Linux</span>
+          <span class="skill-tag">Windows</span>
+          <span class="skill-tag">Sys Administration</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h4>Tools &amp; Platforms</h4>
+        <div class="skill-tags">
+          <span class="skill-tag">CRM Software</span>
+          <span class="skill-tag">Microsoft Office</span>
+          <span class="skill-tag">Google Workspace</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h4>Concepts</h4>
+        <div class="skill-tags">
+          <span class="skill-tag">Workflow Automation</span>
+          <span class="skill-tag">Project Coordination</span>
+          <span class="skill-tag">Client Relations</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="container">
+    <p class="section-label">Academic</p>
+    <h2 class="section-title">Education</h2>
+    <div class="divider"></div>
+    <div class="edu-card">
+      <div class="edu-icon">🎓</div>
+      <div>
+        <div class="edu-school">Rowan University · Glassboro, NJ</div>
+        <div class="edu-degree">Bachelor of Arts, Computer Systems Technology (In Progress)</div>
+        <div class="edu-courses">
+          Relevant coursework: Networking Fundamentals · Cybersecurity Principles · Python Programming · Java Programming · Systems Administration
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <p class="section-label">Get in touch</p>
+    <h2 class="section-title">Contact</h2>
+    <div class="divider" style="margin-left:auto;margin-right:auto;"></div>
+    <p style="color:var(--muted);max-width:480px;margin:0 auto;">
+      Open to roles in IT, Cybersecurity, and Technical Operations. Feel free to reach out.
+    </p>
+    <div class="contact-links">
+      <a class="contact-link" href="mailto:joediamond35@gmail.com">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
+        joediamond35@gmail.com
+      </a>
+      <a class="contact-link" href="https://github.com/joediamondlife-design" target="_blank" rel="noopener">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        github.com/joediamondlife-design
+      </a>
+      <a class="contact-link" href="https://tryhackme.com/p/diamon47" target="_blank" rel="noopener">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        TryHackMe
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 Joseph Diamond · Built with HTML &amp; CSS</p>
+</footer>
+
+</body>
+</html>
